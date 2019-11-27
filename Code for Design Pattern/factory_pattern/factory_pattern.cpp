@@ -8,6 +8,8 @@
 #include<string>
 #include<iostream>
 #include <functional>
+#include <boost/smart_ptr.hpp>
+#include <boost/make_shared.hpp>
 using namespace std;
 class Button
 {
@@ -47,8 +49,8 @@ public:
     ButtonFactory(string type) :m_type(type) {
 
     }
-    virtual Button* CreateButton() = 0;
-    bool CheckButton(Button* button) {
+    virtual boost::shared_ptr<Button> CreateButton() = 0;
+    bool CheckButton(boost::shared_ptr<Button> button) {
         if (button->getType() == m_type)
         {
             cout << "ok" << endl;
@@ -67,8 +69,8 @@ class WinButtonFactory : public ButtonFactory {
 public:
     WinButtonFactory(string type) :ButtonFactory(type) {
     }
-    Button* CreateButton() {
-        return new WinButton(m_type);
+    boost::shared_ptr<Button> CreateButton() {
+        return boost::make_shared<WinButton>(m_type);
     } 
 };
 class MacButtonFactory : public ButtonFactory {
@@ -76,22 +78,22 @@ class MacButtonFactory : public ButtonFactory {
 public:
     MacButtonFactory(string type) :ButtonFactory(type) {
     }
-    Button* CreateButton() {
-        return new MacButton(m_type);
+    boost::shared_ptr<Button> CreateButton() {
+        return boost::make_shared<MacButton>(m_type);
     }
 };
 //²âÊÔ´úÂë
 void Test()
 {
     string type1 = "Win";
-    ButtonFactory* winButtonFactory = new WinButtonFactory(type1);
-    Button* button1 = winButtonFactory->CreateButton();
+    boost::shared_ptr<ButtonFactory> winButtonFactory = boost::make_shared<WinButtonFactory>(type1);
+    boost::shared_ptr<Button> button1 = winButtonFactory->CreateButton();
     winButtonFactory->CheckButton(button1);
     cout << button1->getTypeString() << endl;
 
     string type2 = "Mac";
-    ButtonFactory* macButtonFactory = new MacButtonFactory(type2);
-    Button* button2 =  macButtonFactory->CreateButton();
+    boost::shared_ptr<ButtonFactory> macButtonFactory = boost::make_shared<MacButtonFactory>(type2);
+    boost::shared_ptr<Button> button2 =  macButtonFactory->CreateButton();
     macButtonFactory->CheckButton(button2);
     cout << button2->getTypeString() << endl;
 }
