@@ -25,22 +25,23 @@ jieba.lcut 以及 jieba.lcut_for_search 直接返回 list
 jieba.Tokenizer(dictionary=DEFAULT_DICT) 新建自定义分词器，可用于同时使用不同词典。jieba.dt 为默认分词器，所有全局分词相关函数都是该分词器的映射。
 '''
 seg_list = jieba.cut("我来到北京清华大学", cut_all=True, HMM=False)
-print("Full Mode " + "/".join(seg_list)) #全模式
+print("Full Mode " + "/".join(seg_list))  # 全模式
 
 seg_list = jieba.cut("我来到北京清华大学", cut_all=False, HMM=True)
-print("Default Mode " + "/".join(seg_list)) #默认模式-精确模式
+print("Default Mode " + "/".join(seg_list))  # 默认模式-精确模式
 
 seg_list = jieba.cut("我来到北京清华大学", cut_all=False, HMM=False)
-print("Search Engine Mode " + "/".join(seg_list)) #搜索引擎模式
+print("Search Engine Mode " + "/".join(seg_list))  # 搜索引擎模式
 
 seg_list = jieba.cut_for_search("小明硕士毕业于中国科学院计算所，后在日本京都大学深造")  # 搜索引擎模式
 print("Search Engine Mode " + ", ".join(seg_list))
 
-seg_list = jieba.cut_for_search("小明硕士毕业于中国科学院计算所，后在日本京都大学深造", HMM=False)  # 搜索引擎模式
+seg_list = jieba.cut_for_search(
+    "小明硕士毕业于中国科学院计算所，后在日本京都大学深造", HMM=False)  # 搜索引擎模式
 print("Search Engine Mode " + ", ".join(seg_list))
 
 seg_list = jieba.cut("小明硕士毕业于中国科学院计算所，后在日本京都大学深造", cut_all=False, HMM=True)
-print("Default Mode " + "/".join(seg_list)) #默认模式-精确模式
+print("Default Mode " + "/".join(seg_list))  # 默认模式-精确模式
 
 '''
 关键字提取
@@ -55,7 +56,4 @@ tags = analyse.extract_tags(text, topK)
 print("extract result: " + "\n".join(tags))
 
 textrank = analyse.textrank(text)
-print("textrank extract: "+ "\n".join(tags))
-
-
-
+print("textrank extract: " + "\n".join(tags))
