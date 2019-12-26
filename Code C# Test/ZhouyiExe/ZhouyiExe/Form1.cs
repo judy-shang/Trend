@@ -116,7 +116,8 @@ namespace ZhouyiExe
 
         private void linkLabel19_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {//TODO
-
+            Form_ExeChoice form2 = new Form_ExeChoice(); //生成一个Form2对象
+            form2.ShowDialog();  //将Form2窗体显示为模式对话框
         }
 
         private void linkLabel20_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
